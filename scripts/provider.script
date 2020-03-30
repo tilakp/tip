@@ -6,8 +6,8 @@ require 'cgi'
 def main(input)
   items = []
   items += get_time(input)
-  items += get_jira_url(input)
   items += get_google_url(input)
+  items += get_amazon_url(input)
   items += get_definition(input)
 
   puts items.compact.to_json
@@ -25,15 +25,15 @@ def get_google_url(input)
    }]
 end
 
-def get_jira_url(input)
+def get_amazon_url(input)
   input = input.strip
-  return [] unless /\A[A-Za-z]+-[0-9]+\z/.match(input)
+  return [] unless input
 
 
   [{
        type: 'url',
-       label: 'Open JIRA',
-       value: "https://youtrack.jetbrains.com/issue/#{input}"
+       label: 'Search on Amazon',
+       value: "https://smile.amazon.com/s?k=#{CGI.escape(input)}"
    }]
 end
 
@@ -65,8 +65,8 @@ def get_definition(input)
   return [] unless /^[a-zA-Z]+$/.match(input)
   [{
        type: 'url',
-       label: 'Open Dictionary',
-       value: "https://www.dictionary.com/browse/#{input}"
+       label: 'Open merriam webster dictionary',
+       value: "https://www.merriam-webster.com/dictionary/#{input}"
   }]
 end
 
